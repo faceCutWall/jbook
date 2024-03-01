@@ -26,6 +26,10 @@ const App: React.FC = () => {
         bundle: true,
         write: false,
         plugins: [unpkgPathPlugin()],
+        define: {
+          "process.env.NODE_ENV": '"production"',
+          global: "window",
+        },
       })
       .then((result) => {
         setCode(result.outputFiles[0].text);
