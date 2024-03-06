@@ -33,12 +33,19 @@ const App: React.FC = () => {
         },
       })
       .then((result) => {
-        setCode(result.outputFiles[0].text);
+        const code = result.outputFiles[0].text;
+        setCode(code);
       })
       .catch((err) => {
         console.error(err);
       });
   };
+
+  const html = `
+  <script>
+    ${code}
+  </script>
+  `;
 
   return (
     <div>
@@ -54,6 +61,7 @@ const App: React.FC = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
+      <iframe sandbox="allow-scripts" srcDoc={html}></iframe>
     </div>
   );
 };
