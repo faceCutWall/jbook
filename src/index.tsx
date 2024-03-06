@@ -43,6 +43,8 @@ const App: React.FC = () => {
   return (
     <div>
       <textarea
+        rows={10}
+        cols={60}
         value={input}
         onChange={(e) => {
           setInput(e.target.value);
