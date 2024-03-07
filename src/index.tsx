@@ -6,8 +6,8 @@ import { fetchPlugin } from "./plugins/fetch-plugin";
 
 const App: React.FC = () => {
   const [input, setInput] = useState<string>("");
-  const [code, setCode] = useState<string>("");
   const ref = useRef<esbuild.Service>();
+  const ifream = useRef<HTMLIFrameElement>(null);
 
   const startService = async (): Promise<void> => {
     ref.current = await esbuild.startService({
@@ -21,6 +21,8 @@ const App: React.FC = () => {
   }, []);
 
   const onClick = (): void => {
+    ifream.current!.srcdoc = html;
+
     ref.current
       ?.build({
         entryPoints: ["index.js"],
@@ -34,7 +36,7 @@ const App: React.FC = () => {
       })
       .then((result) => {
         const code = result.outputFiles[0].text;
-        setCode(code);
+        ifream.current?.contentWindow?.postMessage(code, "*");
       })
       .catch((err) => {
         console.error(err);
@@ -42,9 +44,22 @@ const App: React.FC = () => {
   };
 
   const html = `
-  <script>
-    ${code}
-  </script>
+  <html>
+    <head></head>
+    <body>
+      <div id="root"></div>
+      <script>
+        window.addEventListener('message', (event) => {
+          try {
+            eval(event.data);
+          } catch (err) {
+            const root = document.getElementById('root');
+            root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+          }
+        }, false);
+      </script>
+    </body>
+  </html>
   `;
 
   return (
@@ -60,8 +75,7 @@ const App: React.FC = () => {
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <pre>{code}</pre>
-      <iframe sandbox="allow-scripts" srcDoc={html}></iframe>
+      <iframe ref={ifream} sandbox="allow-scripts" srcDoc={html}></iframe>
     </div>
   );
 };
