@@ -1,8 +1,10 @@
+import "bulmaswatch/superhero/bulmaswatch.min.css";
 import * as esbuild from "esbuild-wasm";
 import React, { useState, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { unpkgPathPlugin } from "./plugins/unpkg-path-plugin";
 import { fetchPlugin } from "./plugins/fetch-plugin";
+import { CodeEditor } from "./components/code-editor";
 
 const App: React.FC = () => {
   const [input, setInput] = useState<string>("");
@@ -64,16 +66,19 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <textarea
-        rows={10}
-        cols={60}
-        value={input}
-        onChange={(e) => {
-          setInput(e.target.value);
+      <CodeEditor
+        initialValue="console.log('hello world')"
+        onChange={(value) => {
+          setInput(value);
         }}
-      />
+      ></CodeEditor>
       <div>
-        <button onClick={onClick}>Submit</button>
+        <button
+          className="button button-format is-primary is-small"
+          onClick={onClick}
+        >
+          Submit
+        </button>
       </div>
       <iframe ref={ifream} sandbox="allow-scripts" srcDoc={html}></iframe>
     </div>
