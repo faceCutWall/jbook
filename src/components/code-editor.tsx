@@ -1,6 +1,7 @@
 import MoancoEditor, { type EditorDidMount } from "@monaco-editor/react";
-import prettier from "prettier";
-import parser from "prettier/parser-babel";
+import prettier from "prettier/standalone";
+import parser from "prettier/plugins/babel";
+import * as prettierPluginEstree from "prettier/plugins/estree";
 import React, { useRef } from "react";
 import "./code-editor.css";
 
@@ -25,14 +26,19 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const onFormatClick = (): void => {
     const unformatted: string = editorRef.current.getModel().getValue();
-    const formatted = prettier
+    prettier
       .format(unformatted, {
         parser: "babel",
-        plugins: [parser],
+        plugins: [parser, prettierPluginEstree],
         semi: true,
       })
-      .replace(/\n$/, "");
-    editorRef.current.setValue(formatted);
+      .then((formatted) =>
+        editorRef.current.setValue(formatted.replace(/\n$/, "")),
+      )
+      .catch((error) => {
+        console.error(error);
+        return unformatted;
+      });
   };
 
   return (
