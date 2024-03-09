@@ -1,7 +1,7 @@
 import MoancoEditor, { type EditorDidMount } from "@monaco-editor/react";
-import prettier from "prettier/standalone";
-import parser from "prettier/plugins/babel";
-import * as prettierPluginEstree from "prettier/plugins/estree";
+import prettier from "prettier-v3/standalone";
+import parser from "prettier-v3/plugins/babel";
+import * as prettierPluginEstree from "prettier-v3/plugins/estree";
 import React, { useRef } from "react";
 import "./code-editor.css";
 
