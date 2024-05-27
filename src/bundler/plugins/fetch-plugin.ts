@@ -11,7 +11,7 @@ interface FetchPlugin {
   setup: (build: esbuild.PluginBuild) => void
 }
 
-export function fetchPlugin(inputCode: string): FetchPlugin {
+function fetchPlugin(inputCode: string): FetchPlugin {
   return {
     name: 'fetch-plugin',
     setup(build: esbuild.PluginBuild) {
@@ -67,3 +67,5 @@ export function fetchPlugin(inputCode: string): FetchPlugin {
     },
   }
 }
+
+export default fetchPlugin

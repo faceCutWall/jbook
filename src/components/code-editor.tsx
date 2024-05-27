@@ -10,7 +10,7 @@ interface CodeEditorProps {
   onChange: (value: string) => void
 }
 
-export const CodeEditor: React.FC<CodeEditorProps> = ({
+const CodeEditor: React.FC<CodeEditorProps> = ({
   initialValue,
   onChange,
 }) => {
@@ -71,3 +71,5 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     </div>
   )
 }
+
+export default CodeEditor

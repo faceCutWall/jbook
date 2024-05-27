@@ -1,6 +1,10 @@
 import 'bulmaswatch/superhero/bulmaswatch.min.css'
 import { createRoot } from 'react-dom/client'
-import { App } from './components/app'
+import CodeCell from './components/code-cell'
 
 const root = createRoot(document.getElementById('root')!)
-root.render(<App />)
+root.render(
+  <div>
+    <CodeCell />
+  </div>,
+)

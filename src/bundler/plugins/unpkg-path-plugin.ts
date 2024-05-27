@@ -5,7 +5,7 @@ interface UnpkgPlugin {
   setup: (build: esbuild.PluginBuild) => void
 }
 
-export function unpkgPathPlugin(): UnpkgPlugin {
+function unpkgPathPlugin(): UnpkgPlugin {
   return {
     name: 'unpkg-path-plugin',
     setup(build: esbuild.PluginBuild) {
@@ -31,3 +31,5 @@ export function unpkgPathPlugin(): UnpkgPlugin {
     },
   }
 }
+
+export default unpkgPathPlugin
