@@ -25,22 +25,22 @@ const html = `
 </html>
 `
 
-const Preview: React.FC<PreviewProps> = ({ code, trigger }) => {
+const Preview: React.FC<PreviewProps> = ({ code }) => {
   const ifream = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {
     ifream.current!.srcdoc = html
     ifream.current?.contentWindow?.postMessage(code, '*')
-  }, [code, trigger])
+  })
 
-	  return (
-  <iframe
-    title="preview"
-    sandbox="allow-scripts"
-    srcDoc={html}
-    ref={ifream}
-  />
-	  )
+  return (
+    <iframe
+      title="preview"
+      sandbox="allow-scripts"
+      srcDoc={html}
+      ref={ifream}
+    />
+  )
 }
 
 export default Preview
