@@ -44,7 +44,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   }
 
   return (
-    <div className="editor-wrapper" style={{ width: '800px' }}>
+    <div className="editor-wrapper">
       <button
         type="button"
         className="button button-format is-primary is-small"
@@ -58,7 +58,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         value={initialValue}
         theme="vs-dark"
         language="javascript"
-        height="400px"
+        height="100%"
         options={{
           minimap: { enabled: false },
           folding: false,
